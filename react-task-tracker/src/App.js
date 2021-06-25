@@ -6,20 +6,8 @@ import { useState } from 'react';
 
 const App = () => {
 
-  const [tasks, setTasks] = useState([
-    {
-        id: 1,
-        text: 'Doctors Appointment',
-        day: 'Feb 5th at 2:30pm',
-        reminder: true,
-    },
-    {
-        id: 2,
-        text: 'Dentist Appointment',
-        day: 'Feb 10th at 1:30pm',
-        reminder: false,
-    }
-])
+  const [showAddTask, setShowAddTask] = useState(false);
+  const [tasks, setTasks] = useState([])
 
 // Add task
 
@@ -45,8 +33,8 @@ const toggleReminder = (id) => {
 
   return (
     <div className="container">
-      <Header/>
-      <AddTask onAdd={addTask}/>
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
+      {showAddTask && <AddTask onAdd={addTask}/>}
       {tasks.length > 0 ? <Tasks onDelete={deleteTask} onToggle={toggleReminder} tasks={tasks}/> : 'No Tasks To Show'}
 
       
